@@ -1,19 +1,19 @@
-const config = require("../config.js");
-const { settings } = require("../modules/settings.js");
-exports.run = async (client, message, args, level) => {
-  const friendly = config.permLevels.find(l => l.level === level).name;
-  const replying = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
+import { permLevels, defaultSettings } from "../config.js";
+import { settings } from "../modules/settings.js";
+export async function run(client, message, args, level) {
+  const friendly = permLevels.find(l => l.level === level).name;
+  const replying = settings.ensure(message.guild.id, defaultSettings).commandReply;
   message.reply({ content: `Your permission level is: ${level} - ${friendly}`, allowedMentions: { repliedUser: (replying === "true") }});
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "mylevel",
   category: "Miscellaneous",
   description: "Tells you your permission level for the current message location.",

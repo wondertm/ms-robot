@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
-exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
+export async function run(client, interaction) { // eslint-disable-line no-unused-vars
 
   embed = {
     title: "Current time",
@@ -13,18 +13,16 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   
   await interaction.reply({embeds: [embed]});
   
-};
+}
 
-exports.commandData = {
+export const commandData = {
   name: "time",
   description: "Displays a map of timezones",
   options: [],
   defaultPermission: true,
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
-exports.conf = {
+export const conf = {
   permLevel: "User",
   guildOnly: true
 };

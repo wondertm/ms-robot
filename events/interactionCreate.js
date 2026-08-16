@@ -1,8 +1,8 @@
-const logger = require("../modules/Logger.js");
-const { getSettings, permlevel } = require("../modules/functions.js");
-const config = require("../config.js");
+import { log } from "../modules/Logger.js";
+import { getSettings, permlevel } from "../modules/functions.js";
+import { permLevels } from "../config.js";
 
-module.exports = async (client, interaction) => {
+export default async (client, interaction) => {
   // If it's not a command, stop.
   if (!interaction.isCommand()) return;
 
@@ -36,7 +36,7 @@ module.exports = async (client, interaction) => {
   // If everything checks out, run the command
   try {
     await cmd.run(client, interaction);
-    logger.log(`${config.permLevels.find(l => l.level === level).name} ${interaction.user.id} ran slash command ${interaction.commandName}`, "cmd");
+    log(`${permLevels.find(l => l.level === level).name} ${interaction.user.id} ran slash command ${interaction.commandName}`, "cmd");
 
   } catch (e) {
     console.error(e);

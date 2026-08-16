@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   //generate random color
   var color = Math.floor(Math.random() * 16777215).toString(16);
   const Discord = require('discord.js');
@@ -50,16 +50,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   };
   return message.channel.send({ embeds : [embed]});
   
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "define",
   category: "Fun",
   description: "Grab urban dictionary definition for something",

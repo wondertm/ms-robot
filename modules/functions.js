@@ -1,6 +1,12 @@
-const logger = require("./Logger.js");
-const config = require("../config.js");
-const { settings } = require("./settings.js");
+import { error } from "./Logger.js";
+import config from "../config.js";
+import { settings } from "./settings.js";
+
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // Let's start by getting some useful functions that we'll use throughout
 // the bot, like logs and elevation features.
 
@@ -40,13 +46,30 @@ function permlevel(message) {
   
 // getSettings merges the client defaults with the guild settings. guild settings in
 // enmap should only have *unique* overrides that are different from defaults.
+// function getSettings(guild) {
+//   settings.ensure("default", config.defaultSettings);
+//   if (!guild) return settings.get("default");
+//   const guildConf = settings.get(guild.id) || {};
+//   // This "..." thing is the "Spread Operator". It's awesome!
+//   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+//   return ({...settings.get("default"), ...guildConf});
+// }
 function getSettings(guild) {
   settings.ensure("default", config.defaultSettings);
-  if (!guild) return settings.get("default");
-  const guildConf = settings.get(guild.id) || {};
-  // This "..." thing is the "Spread Operator". It's awesome!
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-  return ({...settings.get("default"), ...guildConf});
+
+  // Extract guild ID safely if a guild object or ID was passed
+  const guildId = typeof guild === "string" ? guild : guild?.id;
+
+  if (!guildId) return settings.get("default");
+
+  try {
+    const guildConf = settings.get(guildId) || {};
+    return ({ ...settings.get("default"), ...guildConf });
+  } catch (err) {
+    // If a specific guild's data is corrupted, fallback to default instead of crashing
+    console.warn(`Failed to load settings for guild ${guildId}, using defaults. Error:`, err.message);
+    return settings.get("default");
+  }
 }
 
 /*
@@ -133,7 +156,7 @@ function toProperCase(string) {
 // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 process.on("uncaughtException", (err) => {
   const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
-  logger.error(`Uncaught Exception: ${errorMsg}`);
+  error(`Uncaught Exception: ${errorMsg}`);
   console.error(err);
   // Always best practice to let the code crash on uncaught exceptions. 
   // Because you should be catching them anyway.
@@ -141,8 +164,9 @@ process.on("uncaughtException", (err) => {
 });
 
 process.on("unhandledRejection", err => {
-  logger.error(`Unhandled rejection: ${err}`);
+  error(`Unhandled rejection: ${err}`);
   console.error(err);
 });
 
-module.exports = { getSettings, permlevel, awaitReply, find_user, toProperCase };
+export { getSettings, permlevel, awaitReply, find_user, toProperCase };
+export default { getSettings, permlevel, awaitReply, find_user, toProperCase };

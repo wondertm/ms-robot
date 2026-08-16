@@ -1,4 +1,4 @@
-exports.run = async (client, message, args, level, command) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level, command) { // eslint-disable-line no-unused-vars
   var msgLower = message.content.toLowerCase();
 
   if (["ms robot test", "anyone listening?"].includes(msgLower)) {
@@ -28,16 +28,16 @@ exports.run = async (client, message, args, level, command) => { // eslint-disab
       message.react("758296751861268540");
     }
   }
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "partialMessage",
   category: "Miscellaneous",
   description: "Easter eggs, funky things and others",

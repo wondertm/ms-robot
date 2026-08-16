@@ -1,9 +1,9 @@
-const config = require("../config.js");
-const { settings } = require("../modules/settings.js");
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+import { defaultSettings } from "../config.js";
+import { settings } from "../modules/settings.js";
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   // Grab the container from the client to reduce line length.
   const { container } = client;
-  const replying = settings.ensure(message.guild.id, config.defaultSettings).commandReply;
+  const replying = settings.ensure(message.guild.id, defaultSettings).commandReply;
   if (!args || args.length < 1) return message.reply("Must provide a command name to reload.");
   const command = container.commands.get(args[0]) || container.commands.get(container.aliases.get(args[0]));
   // Check if the command exists and is valid
@@ -18,16 +18,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   container.commands.set(command.help.name, props);
 
   message.reply({ content: `The command \`${command.help.name}\` has been reloaded`, allowedMentions: { repliedUser: (replying === "true") }});
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["update"],
   permLevel: "Bot Admin"
 };
 
-exports.help = {
+export const help = {
   name: "reload",
   category: "System",
   description: "Reloads a command that\"s been modified.",

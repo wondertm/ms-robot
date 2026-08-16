@@ -1,7 +1,8 @@
-const giphy = require('giphy-api')('I9k7noRKrbkHYQgj8SCHRGvm1dhhDYds');
-const Discord = require('discord.js');
+import giphyPkg from 'giphy-api';
+const giphy = giphyPkg('I9k7noRKrbkHYQgj8SCHRGvm1dhhDYds');
+import Discord from 'discord.js';
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   //generate random color
   var color = Math.floor(Math.random() * 16777215).toString(16);
 
@@ -33,16 +34,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     return
 
   })
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "gif",
   category: "Fun",
   description: "Grab a random gif from giphy matching your description",

@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   
   const { link } = await fetch('https://some-random-api.com/img/cat').then(response => response.json());
   const cat = link;
@@ -17,16 +17,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   };
   
   message.channel.send({ embeds: [embed] });
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "cat",
   category: "Fun",
   description: "Grab a random cat fact and cute picture",

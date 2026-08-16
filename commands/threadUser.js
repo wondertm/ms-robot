@@ -1,4 +1,4 @@
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
 const { find_user } = require("../modules/functions.js");
 const { MessageEmbed } = require("discord.js");
 const moment = require('moment');
@@ -147,16 +147,16 @@ const regex = /(\d){18}/;
 
     message.channel.send({embeds:[embeduserinfo]})
   }
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['user'],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "threadUser",
   category: "Moderation",
   description: "Reposts the userID of the user in a mod thread",

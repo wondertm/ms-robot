@@ -1,4 +1,4 @@
-const { Intents } = require("discord.js");
+import { Intents } from "discord.js";
 
 const config = {
   // Bot Admins, level 9 by default. Array of user ID strings.
@@ -168,4 +168,9 @@ const config = {
   ]
 };
 
-module.exports = config;
+// allow individual exports, while still supporting default export for compatibility
+let defaultSettings = config.defaultSettings;
+let permLevels = config.permLevels;
+export { permLevels };
+export { config, defaultSettings };
+export default config;

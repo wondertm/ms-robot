@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   let animal = 'kangaroo';
   const { image, fact } = await fetch('https://some-random-api.com/animal/'+animal).then(response => response.json());
   //returns a random kangaroo image and fact with format:
@@ -21,16 +21,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   };
   
   message.channel.send({ embeds: [embed] });
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['roo'],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "kangaroo",
   category: "Fun",
   description: "Grab a random kangaroo fact and cute picture",

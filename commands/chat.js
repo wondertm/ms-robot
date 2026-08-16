@@ -1,4 +1,4 @@
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
   //combine the args into a string
   let msg = args.join(" ");
@@ -9,16 +9,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const { response } = await fetch('https://some-random-api.com/chatbot?key='+key+'&message='+msg).then(response => response.json());
   return await message.reply(response);
   
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['c'],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "chat",
   category: "Fun",
   description: "Chat with a bot",

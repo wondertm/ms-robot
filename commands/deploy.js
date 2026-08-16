@@ -1,4 +1,4 @@
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
 
   // We'll partition the slash commands based on the guildOnly boolean.
   // Separating them into the correct objects defined in the array below.
@@ -16,16 +16,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
   // Reply to the user that the commands have been deployed.
   await message.channel.send("All commands deployed!");
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
   permLevel: "Bot Owner"
 };
 
-exports.help = {
+export const help = {
   name: "deploy",
   category: "System",
   description: "This will deploy all slash commands.",

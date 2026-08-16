@@ -1,7 +1,7 @@
-const { getSettings } = require("../modules/functions.js");
+import { getSettings } from "../modules/functions.js";
 // This event executes when a new member joins a server. Let's welcome them!
 
-module.exports = (client, member) => {
+export default (client, member) => {
   // Load the guild's settings
   const settings = getSettings(member.guild);
 

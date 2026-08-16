@@ -5,10 +5,10 @@ command is also filtered by level, so if a user does not have access to
 a command, it is not shown to them. If a command name is given with the
 help command, its extended help is shown.
 */
-const { codeBlock } = require("@discordjs/builders");
-const { toProperCase } = require("../modules/functions.js");
+import { codeBlock } from "@discordjs/builders";
+import { toProperCase } from "../modules/functions.js";
 
-exports.run = (client, message, args, level) => {
+export function run(client, message, args, level) {
   // Grab the container from the client to reduce line length.
   const { container } = client;
   // If no specific command is called, show all filtered commands.
@@ -60,16 +60,16 @@ exports.run = (client, message, args, level) => {
       if (level < container.levelCache[command.conf.permLevel]) return;
       message.channel.send(codeBlock("asciidoc", `= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(", ")}`));
     } else return message.channel.send("No command with that name, or alias exists.");
-  }};
+  }}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["h", "halp"],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "help",
   category: "System",
   description: "Displays all the available commands for your permission level.",

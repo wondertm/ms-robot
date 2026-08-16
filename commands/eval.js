@@ -3,7 +3,7 @@
 // can be used to do **anything** on your machine, from stealing information to
 // purging the hard drive. DO NOT LET ANYONE ELSE USE THIS
 
-const { codeBlock } = require("@discordjs/builders");
+import { codeBlock } from "@discordjs/builders";
 
 /*
   MESSAGE CLEAN FUNCTION
@@ -30,21 +30,21 @@ async function clean(client, text) {
 
 // However it's, like, super ultra useful for troubleshooting and doing stuff
 // you don't want to put in a command.
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   const code = args.join(" ");
   const evaled = eval(code);
   const cleaned = await clean(client, evaled);
   message.channel.send(codeBlock("js", cleaned));
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "Bot Owner"
 };
 
-exports.help = {
+export const help = {
   name: "eval",
   category: "System",
   description: "Evaluates arbitrary javascript.",

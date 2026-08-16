@@ -1,6 +1,6 @@
 const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 
-exports.run = async (client, interaction) => { // eslint-disable-line no-unused-vars
+export async function run(client, interaction) { // eslint-disable-line no-unused-vars
 
     
   const factEmbed = {
@@ -30,18 +30,16 @@ exports.run = async (client, interaction) => { // eslint-disable-line no-unused-
   //await interaction.editReply(`Pong! Latency is ${reply.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`);
   await interaction.editReply({embeds: [embed]});
   
-};
+}
 
-exports.commandData = {
+export const commandData = {
   name: "cat",
   description: "Grab a random cat fact and cute picture",
   options: [],
   defaultPermission: true,
 };
 
-// Set guildOnly to true if you want it to be available on guilds only.
-// Otherwise false is global.
-exports.conf = {
+export const conf = {
   permLevel: "User",
   guildOnly: true
 };

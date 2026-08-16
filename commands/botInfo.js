@@ -1,9 +1,9 @@
-const { version } = require("discord.js");
-const { codeBlock } = require("@discordjs/builders");
-const { DurationFormatter } = require("@sapphire/time-utilities");
+import { version } from "discord.js";
+import { codeBlock } from "@discordjs/builders";
+import { DurationFormatter } from "@sapphire/time-utilities";
 const durationFormatter = new DurationFormatter();
 
-exports.run = (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   const duration = durationFormatter.format(client.uptime);
   const msg = {
     title: "about ms robot",
@@ -26,16 +26,16 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
 
   }
   message.channel.send({ embeds: [msg] });
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "botinfo",
   category: "Miscellaneous",
   description: "github and server invite links",

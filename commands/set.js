@@ -10,11 +10,11 @@
 // const action = args[0]; const key = args[1]; const value = args.slice(2);
 // OR the same as:
 // const [action, key, ...value] = args;
-const { codeBlock } = require("@discordjs/builders");
-const { settings } = require("../modules/settings.js");
-const { awaitReply } = require("../modules/functions.js");
+import { codeBlock } from "@discordjs/builders";
+import { settings } from "../modules/settings.js";
+import { awaitReply } from "../modules/functions.js";
 
-exports.run = async (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, [action, key, ...value], level) { // eslint-disable-line no-unused-vars
 
   // Retrieve current guild settings (merged) and overrides only.
   const serverSettings = message.settings;
@@ -80,16 +80,16 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
     await message.channel.send(codeBlock("asciidoc", `= Current Guild Settings =
 ${array.join("\n")}`));    
   }
-};
+}
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["setting", "settings", "conf"],
   permLevel: "Administrator"
 };
 
-exports.help = {
+export const help = {
   name: "set",
   category: "System",
   description: "View or change settings for your server.",

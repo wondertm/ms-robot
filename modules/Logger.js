@@ -1,10 +1,10 @@
 /*
 Logger class for easy and aesthetically pleasing console logging 
 */
-const { cyan, red, magenta, gray, yellow, white, green } = require("colorette");
-const { Timestamp } = require("@sapphire/time-utilities");
+import { cyan, red, magenta, gray, yellow, white, green } from "colorette";
+import { Timestamp } from "@sapphire/time-utilities";
 
-exports.log = (content, type = "log") => {
+export function log(content, type = "log") {
   const timestamp = `[${cyan(new Timestamp("YYYY-MM-DD HH:mm:ss"))}]:`;
   
   switch (type) {
@@ -16,12 +16,12 @@ exports.log = (content, type = "log") => {
     case "ready": return console.log(`${timestamp} ${green(type.toUpperCase())} ${content}`);
     default: throw new TypeError("Logger type must be either warn, debug, log, ready, cmd or error.");
   }
-}; 
+}
 
-exports.error = (...args) => this.log(...args, "error");
+export function error(...args) { return log(...args, "error"); }
 
-exports.warn = (...args) => this.log(...args, "warn");
+export function warn(...args) { return log(...args, "warn"); }
 
-exports.debug = (...args) => this.log(...args, "debug");
+export function debug(...args) { return log(...args, "debug"); }
 
-exports.cmd = (...args) => this.log(...args, "cmd");
+export function cmd(...args) { return log(...args, "cmd"); }

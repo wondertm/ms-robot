@@ -1,4 +1,4 @@
-exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+export async function run(client, message, args, level) { // eslint-disable-line no-unused-vars
   const { MessageEmbed } = require("discord.js");
   const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
   const http = require('http'); // or 'https' for https:// URLs
@@ -23,14 +23,14 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   message.channel.send({embeds: [embed]});
 }
 
-exports.conf = {
+export const conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["pat"],
   permLevel: "User"
 };
 
-exports.help = {
+export const help = {
   name: "headpat",
   category: "gifs",
   description: "give a user a headpat",

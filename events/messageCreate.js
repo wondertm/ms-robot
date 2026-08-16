@@ -1,12 +1,12 @@
-const logger = require("../modules/Logger.js");
-const { getSettings, permlevel } = require("../modules/functions.js");
-const config = require("../config.js");
+import { log } from "../modules/Logger.js";
+import { getSettings, permlevel } from "../modules/functions.js";
+import config from "../config.js";
 
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 
-module.exports = async (client, message) => {
+export default async (client, message) => {
   // Grab the container from the client to reduce line length.
   const { container } = client;
   // It's good practice to ignore other bots. This also makes your bot ignore itself
@@ -87,7 +87,7 @@ This command requires level ${container.levelCache[cmd.conf.permLevel]} (${cmd.c
   if(prefix){
     try {
       await cmd.run(client, message, args, level);
-      logger.log(`${config.permLevels.find(l => l.level === level).name} ${message.author.id} ran command ${cmd.help.name}`, "cmd");
+      log(`${config.permLevels.find(l => l.level === level).name} ${message.author.id} ran command ${cmd.help.name}`, "cmd");
     } catch (e) {
       console.error(e);
       message.channel.send({ content: `There was a problem with your request.\n\`\`\`${e.message}\`\`\`` })

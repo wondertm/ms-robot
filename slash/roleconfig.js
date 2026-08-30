@@ -118,7 +118,7 @@ export const commandData = {
 };
 
 export const conf = {
-  // Anyone may invoke; the real check is Manage Roles, at the top of run().
-  permLevel: "User",
+  // Limit to server config bot admin role
+  permLevel: "Administrator",
   guildOnly: true
 };
